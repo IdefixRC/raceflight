@@ -545,7 +545,13 @@ void init(void)
     ledStripInit(masterConfig.ledConfigs, masterConfig.colors);
 
     if (feature(FEATURE_LED_STRIP)) {
+#ifdef COLIBRI
+        if (!doesConfigurationUsePort(SERIAL_PORT_USART1)) {
+            ledStripEnable();
+        }
+#else
         ledStripEnable();
+#endif
     }
 #endif
 
