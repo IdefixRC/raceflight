@@ -557,6 +557,13 @@ static void detectMag(magSensor_e magHardwareToUse)
     hmc5883Config = &aq32v2Hmc5883Config;
 #endif
 
+#ifdef COLIBRI
+    static const hmc5883Config_t colibriHmc5883Config = {
+		.io = IO_TAG(PC1)
+	};
+    hmc5883Config = &colibriHmc5883Config;
+#endif
+
 retry:
 
     magAlign = ALIGN_DEFAULT;
