@@ -18,28 +18,40 @@
 #pragma once
 #define TARGET_BOARD_IDENTIFIER "COLI"
 
-#define LED0_GPIO   GPIOC
-#define LED0_PIN    Pin_14 // Blue LEDs
-#define LED0_PERIPHERAL RCC_AHB1Periph_GPIOC
+#define CONFIG_START_FLASH_ADDRESS (0x08080000) //0x08080000 to 0x080A0000 (FLASH_Sector_8)
 
-#define LED1_GPIO   GPIOC
-#define LED1_PIN    Pin_13  // Red LEDs
-#define LED1_PERIPHERAL RCC_AHB1Periph_GPIOC
+#define USE_EXTI
 
+#define LED0 PC14
+#define LED1 PC13
 
-#define BEEP_GPIO   GPIOC
-#define BEEP_PIN    Pin_5 // Red LEDs
-#define BEEP_PERIPHERAL RCC_AHB1Periph_GPIOC
+#define BEEPER PC5
 #define BEEPER_INVERTED
 
-
-#define INVERTER_PIN Pin_2 // PC0 used as inverter select GPIO
-#define INVERTER_GPIO GPIOB
-#define INVERTER_PERIPHERAL RCC_AHB1Periph_GPIOB
+#define INVERTER PB2 // PC2 used as inverter select GPIO
 #define INVERTER_USART USART2
 
-#define M25P16_CS_GPIO        GPIOB
-#define M25P16_CS_PIN         GPIO_Pin_12
+#define MPU6000_CS_PIN        PC4
+#define MPU6000_SPI_INSTANCE  SPI1
+
+#define ACC
+#define USE_ACC_MPU6000
+#define USE_ACC_SPI_MPU6000
+#define ACC_MPU6000_ALIGN CW270_DEG
+
+#define GYRO
+#define USE_GYRO_MPU6000
+#define USE_GYRO_SPI_MPU6000
+#define GYRO_MPU6000_ALIGN CW270_DEG
+
+#define BARO
+#define USE_BARO_MS5611
+
+#define MAG
+#define USE_MAG_HMC5883
+#define MAG_HMC5883_ALIGN CW270_DEG_FLIP
+
+#define M25P16_CS_PIN         PB12
 #define M25P16_SPI_INSTANCE   SPI2
 
 #define USE_FLASHFS
@@ -47,123 +59,80 @@
 
 #define USABLE_TIMER_CHANNEL_COUNT 16
 
-#define MPU6000_CS_GPIO       GPIOC
-#define MPU6000_CS_PIN        GPIO_Pin_4
-#define MPU6000_SPI_INSTANCE  SPI1
+// up to here
 
-#define BEEPER_INVERTED
-
-#define ACC
-#define USE_ACC_SPI_MPU6000
-#define ACC_SPI_MPU6000_ALIGN CW270_DEG_FLIP
-
-#define GYRO
-#define USE_GYRO_SPI_MPU6000
-#define GYRO_SPI_MPU6000_ALIGN CW270_DEG_FLIP
-
-#define MAG
-//#define USE_MAG_HMC5883
-#define HMC5883_BUS I2C_DEVICE_INT
-#define MAG_HMC5883_ALIGN CW270_DEG_FLIP
-//#define MAG_HMC5883_ALIGN CW90_DEG
-
-#define BARO
-#define USE_BARO_MS5611
-#define MS5611_BUS I2C_DEVICE_INT
-
-#define PITOT
-//#define USE_PITOT_MS4525
-#define MS4525_BUS I2C_DEVICE_EXT
-
-
-#define INVERTER
-#define BEEPER
-#define LED0
-#define LED1
+// MPU6500 interrupt
+//#define DEBUG_MPU_DATA_READY_INTERRUPT
+#define USE_MPU_DATA_READY_SIGNAL
+#define ENSURE_MPU_DATA_READY_IS_LOW
+//#define EXTI_CALLBACK_HANDLER_COUNT 1 // MPU data ready
+#define MPU_INT_EXTI PC0
 
 #define USE_VCP
+#define VBUS_SENSING PA9 					// ???? check this
 
 #define USE_USART1
-#define USART1_RX_PIN Pin_7
-#define USART1_TX_PIN Pin_6
-#define USART1_GPIO GPIOB
-#define USART1_APB2_PERIPHERALS RCC_APB2Periph_USART1
-#define USART1_AHB1_PERIPHERALS RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_DMA2
+#define USART1_RX_PIN PB7
+#define USART1_TX_PIN PB6
+#define USART1_AHB1_PERIPHERALS RCC_AHB1Periph_DMA2
 
 #define USE_USART2
-#define USART2_RX_PIN Pin_3
-#define USART2_TX_PIN Pin_2
-#define USART2_GPIO GPIOA
-#define USART2_APB1_PERIPHERALS RCC_APB1Periph_USART2
-#define USART2_AHB1_PERIPHERALS RCC_AHB1Periph_GPIOA
-
-//#define USE_USART3
-#define USART3_RX_PIN Pin_11
-#define USART3_TX_PIN Pin_10
-#define USART3_GPIO GPIOB
-#define USART3_APB1_PERIPHERALS RCC_APB1Periph_USART3
-#define USART3_AHB1_PERIPHERALS RCC_AHB1Periph_GPIOB
+#define USART2_RX_PIN PA3
+#define USART2_TX_PIN PA2
 
 #define USE_USART4
-#define USART4_RX_PIN Pin_11
-#define USART4_TX_PIN Pin_10
-#define USART4_GPIO GPIOC
-#define USART4_APB1_PERIPHERALS RCC_APB1Periph_UART4
-#define USART4_AHB1_PERIPHERALS RCC_AHB1Periph_GPIOC
+#define USART4_RX_PIN PC11
+#define USART4_TX_PIN PC10
 
 #define USE_USART5
-#define USART5_RX_PIN Pin_2
-#define USART5_TX_PIN Pin_12
-#define USART5_TXGPIO GPIOC
-#define USART5_RXGPIO GPIOD
-#define USART5_APB1_PERIPHERALS RCC_APB1Periph_UART5
-#define USART5_AHB1_PERIPHERALS RCC_AHB1Periph_GPIOC|RCC_AHB1Periph_GPIOD
+#define USART5_RX_PIN PD2
+#define USART5_TX_PIN PC12
 
-//#define USE_USART6
-#define USART6_RX_PIN Pin_7
-#define USART6_TX_PIN Pin_6
-#define USART6_GPIO GPIOC
-#define USART6_APB2_PERIPHERALS RCC_APB2Periph_USART6
-#define USART6_AHB1_PERIPHERALS RCC_AHB1Periph_GPIOC
+#define SERIAL_PORT_COUNT 5					//VCP, USART1, USART2, USART4, USART5
 
-#define SERIAL_PORT_COUNT 5
+#define USE_ESCSERIAL						// ?? check this
+#define ESCSERIAL_TIMER_TX_HARDWARE 0		// ?? check this
 
 #define USE_SPI
+
 #define USE_SPI_DEVICE_1
+#define SPI1_NSS_PIN            PC4
+#define SPI1_SCK_PIN            PA5
+#define SPI1_MISO_PIN           PA6
+#define SPI1_MOSI_PIN           PA7
+
 #define USE_SPI_DEVICE_2
+#define SPI3_NSS_PIN            PB12
+#define SPI3_SCK_PIN            PB13
+#define SPI3_MISO_PIN           PC2
+#define SPI3_MOSI_PIN           PC3
 
 #define USE_I2C
-#define I2C_DEVICE_INT (I2CDEV_3)
-#define I2C_DEVICE_EXT (I2CDEV_2)
+// #define I2C_DEVICE (I2CDEV_1)
+// #define I2C_DEVICE (I2CDEV_3)
+// #define I2C_DEVICE (I2CDEV_2)
 
-#define SENSORS_SET (SENSOR_ACC|SENSOR_MAG|SENSOR_BARO|SENSOR_PITOT)
-
-#define GPS
+#define SENSORS_SET (SENSOR_ACC|SENSOR_MAG|SENSOR_BARO)
 
 #define USE_ADC
-
-#define ADC_INSTANCE                ADC2
-#define ADC_DMA_CHANNEL             DMA2_Channel1
-#define ADC_AHB_PERIPHERAL          RCC_AHBPeriph_DMA2
-
-//#define VBAT_ADC_GPIO               GPIOC
-#define VBAT_ADC_GPIO_PIN           GPIO_Pin_0
+#define VBAT_ADC_PIN                PC0
 #define VBAT_ADC_CHANNEL            ADC_Channel_0
-
-//#define CURRENT_METER_ADC_GPIO      GPIOC
-#define CURRENT_METER_ADC_GPIO_PIN  GPIO_Pin_1
-#define CURRENT_METER_ADC_CHANNEL   ADC_Channel_1
-
-//#define RSSI_ADC_GPIO               GPIOC
-#define RSSI_ADC_GPIO_PIN           GPIO_Pin_2
-#define RSSI_ADC_CHANNEL            ADC_Channel_2
 
 #define LED_STRIP
 #define LED_STRIP_TIMER TIM4
 
+//#define GPS
 #define BLACKBOX
 #define TELEMETRY
 #define SERIAL_RX
 #define AUTOTUNE
+// #define USE_QUAD_MIXER_ONLY
 #define USE_SERVOS
 #define USE_CLI
+
+#define USE_QUATERNION
+
+#define TARGET_IO_PORTA 0xffff
+#define TARGET_IO_PORTB 0xffff
+#define TARGET_IO_PORTC 0xffff
+#define TARGET_IO_PORTD 0xffff
