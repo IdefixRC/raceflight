@@ -1405,7 +1405,7 @@ if (init->useBuzzerP6) {
 #endif
 
         if (type == MAP_TO_PPM_INPUT) {
-#ifdef REVO
+#if defined(REVO) || (COLIBRI)
             if (init->useMultiShot || init->useOneshot || isMotorBrushed(init->motorPwmRate)) {
                 ppmAvoidPWMTimerClash(timerHardwarePtr, TIM12, init);
                 ppmAvoidPWMTimerClash(timerHardwarePtr, TIM8, init);
